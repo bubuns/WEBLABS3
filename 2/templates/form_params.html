@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Параметры формы - Flask Web App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Параметры формы</h1>
+        <p class="lead">Отображение данных, отправленных через форму</p>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Тестовая форма</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Имя</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Введите имя">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Введите email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Возраст</label>
+                                <input type="number" class="form-control" id="age" name="age" placeholder="Введите возраст">
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">Город</label>
+                                <select class="form-select" id="city" name="city">
+                                    <option value="">Выберите город</option>
+                                    <option value="Moscow">Москва</option>
+                                    <option value="SPb">Санкт-Петербург</option>
+                                    <option value="Novosibirsk">Новосибирск</option>
+                                    <option value="Ekaterinburg">Екатеринбург</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Сообщение</label>
+                                <textarea class="form-control" id="message" name="message" rows="3" placeholder="Введите сообщение"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" value="yes">
+                                    <label class="form-check-label" for="newsletter">
+                                        Подписаться на рассылку
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить форму</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Данные формы</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if form_data %}
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Поле</th>
+                                        <th>Значение</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key, value in form_data.items() %}
+                                    <tr>
+                                        <td><code>{{ key }}</code></td>
+                                        <td><code>{{ value }}</code></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p class="text-muted">Отправьте форму для отображения данных</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

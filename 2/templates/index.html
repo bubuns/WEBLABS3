@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Flask Web App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Лабораторная работа №2. Работа с данными запроса</h1>
+        <p class="lead">Веб-приложение на Flask для работы с данными запроса</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Отображение данных запроса</h5>
+                        <p class="card-text">Страницы для отображения различных типов данных запроса</p>
+                        <ul class="list-unstyled">
+                            <li><a href="{{ url_for('url_params') }}" class="btn btn-outline-primary btn-sm">URL Параметры</a></li>
+                            <li><a href="{{ url_for('headers') }}" class="btn btn-outline-primary btn-sm">Заголовки запроса</a></li>
+                            <li><a href="{{ url_for('cookies') }}" class="btn btn-outline-primary btn-sm">Cookie</a></li>
+                            <li><a href="{{ url_for('form_params') }}" class="btn btn-outline-primary btn-sm">Параметры формы</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Валидация номера телефона</h5>
+                        <p class="card-text">Форма с проверкой формата номера телефона</p>
+                        <a href="{{ url_for('phone_validation') }}" class="btn btn-primary">Проверить номер</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

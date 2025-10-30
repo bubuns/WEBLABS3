@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Cookie - Flask Web App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Управление Cookie</h1>
+        <p class="lead">Просмотр, установка и удаление cookies</p>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Текущие Cookie ({{ cookies|length }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if cookies %}
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Имя</th>
+                                        <th>Значение</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key, value in cookies.items() %}
+                                    <tr>
+                                        <td><code>{{ key }}</code></td>
+                                        <td><code>{{ value }}</code></td>
+                                        <td>
+                                            <a href="{{ url_for('delete_cookie', cookie_name=key) }}" 
+                                               class="btn btn-danger btn-sm">Удалить</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p class="text-muted">Cookie не найдены</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Управление Cookie</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Установить тестовые Cookie:</h6>
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('set_cookie', cookie_name='test_cookie', cookie_value='test_value') }}" 
+                               class="btn btn-success">Установить test_cookie</a>
+                            <a href="{{ url_for('set_cookie', cookie_name='user_preference', cookie_value='dark_theme') }}" 
+                               class="btn btn-success">Установить user_preference</a>
+                            <a href="{{ url_for('set_cookie', cookie_name='session_id', cookie_value='abc123xyz') }}" 
+                               class="btn btn-success">Установить session_id</a>
+                        </div>
+                        
+                        <hr>
+                        
+                        <h6>Удалить все Cookie:</h6>
+                        <div class="d-grid gap-2">
+                            {% for key in cookies.keys() %}
+                            <a href="{{ url_for('delete_cookie', cookie_name=key) }}" 
+                               class="btn btn-outline-danger btn-sm">Удалить {{ key }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <div class="alert alert-info">
+                <h5>Инструкция:</h5>
+                <ul>
+                    <li>Нажмите на кнопку "Установить" для создания нового cookie</li>
+                    <li>Нажмите на кнопку "Удалить" для удаления существующего cookie</li>
+                    <li>Cookie будут отображаться в таблице после установки</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

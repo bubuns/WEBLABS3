@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - Управление пользователями{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-users"></i> Список пользователей</h1>
+    {% if is_authenticated %}
+        <a href="{{ url_for('create_user') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Создать пользователя
+        </a>
+    {% endif %}
+</div>
+
+{% if users %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>№</th>
+                    <th>ФИО</th>
+                    <th>Роль</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        {% if user.surname or user.patronymic %}
+                            {{ user.surname or '' }} {{ user.name }} {{ user.patronymic or '' }}
+                        {% else %}
+                            {{ user.name }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.role %}
+                            <span class="badge bg-secondary">{{ user.role.name }}</span>
+                        {% else %}
+                            <span class="text-muted">Не назначена</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="{{ url_for('view_user', user_id=user.id) }}" 
+                               class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-eye"></i> Просмотр
+                            </a>
+                            {% if is_authenticated %}
+                                <a href="{{ url_for('edit_user', user_id=user.id) }}" 
+                                   class="btn btn-sm btn-outline-warning">
+                                    <i class="fas fa-edit"></i> Редактировать
+                                </a>
+                                <button type="button" 
+                                        class="btn btn-sm btn-outline-danger" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal{{ user.id }}">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+        <h3 class="text-muted">Пользователи не найдены</h3>
+        {% if is_authenticated %}
+            <p class="text-muted">Создайте первого пользователя, нажав на кнопку выше</p>
+        {% endif %}
+    </div>
+{% endif %}
+
+<!-- Модальные окна для удаления -->
+{% for user in users %}
+<div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить пользователя 
+                <strong>
+                    {% if user.surname or user.patronymic %}
+                        {{ user.surname or '' }} {{ user.name }} {{ user.patronymic or '' }}
+                    {% else %}
+                        {{ user.name }}
+                    {% endif %}
+                </strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Да</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

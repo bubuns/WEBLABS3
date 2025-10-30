@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Отчет по страницам - Управление пользователями{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-file-alt"></i> Отчет по посещениям страниц</h1>
+    <div>
+        <a href="{{ url_for('reports.export_by_pages') }}" class="btn btn-success">
+            <i class="fas fa-download"></i> Экспорт в CSV
+        </a>
+        <a href="{{ url_for('reports.index') }}" class="btn btn-outline-secondary ms-2">
+            <i class="fas fa-arrow-left"></i> Назад к журналу
+        </a>
+    </div>
+</div>
+
+{% if stats %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>№</th>
+                    <th>Страница</th>
+                    <th>Количество посещений</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for path, count in stats %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <code>{{ path }}</code>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary">{{ count }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+        <h3 class="text-muted">Данные для отчета не найдены</h3>
+        <p class="text-muted">Начните использовать приложение, чтобы увидеть статистику посещений</p>
+    </div>
+{% endif %}
+{% endblock %}

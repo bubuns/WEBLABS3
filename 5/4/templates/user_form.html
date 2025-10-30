@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if is_edit %}Редактирование пользователя{% else %}Создание пользователя{% endif %} - Управление пользователями
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-{% if is_edit %}edit{% else %}plus{% endif %}"></i> 
+        {% if is_edit %}Редактирование пользователя{% else %}Создание пользователя{% endif %}
+    </h1>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Назад к списку
+    </a>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Данные пользователя</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% if not is_edit %}
+                    <div class="mb-3">
+                        <label for="login" class="form-label">Логин <span class="text-danger">*</span></label>
+                        <input type="text" 
+                               class="form-control {{ 'is-invalid' if errors and errors.login else '' }}" 
+                               id="login" 
+                               name="login" 
+                               value="{{ form_data.login if form_data else '' }}"
+                               required>
+                        {% if errors and errors.login %}
+                            <div class="invalid-feedback">{{ errors.login }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Пароль <span class="text-danger">*</span></label>
+                        <input type="password" 
+                               class="form-control {{ 'is-invalid' if errors and errors.password else '' }}" 
+                               id="password" 
+                               name="password" 
+                               required>
+                        {% if errors and errors.password %}
+                            <div class="invalid-feedback">{{ errors.password }}</div>
+                        {% endif %}
+                        <div class="form-text">
+                            Пароль должен содержать 8-128 символов, включая заглавные и строчные буквы, цифры
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Фамилия <span class="text-danger">*</span></label>
+                        <input type="text" 
+                               class="form-control {{ 'is-invalid' if errors and errors.surname else '' }}" 
+                               id="surname" 
+                               name="surname" 
+                               value="{{ form_data.surname if form_data else (user.surname if user else '') }}"
+                               required>
+                        {% if errors and errors.surname %}
+                            <div class="invalid-feedback">{{ errors.surname }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Имя <span class="text-danger">*</span></label>
+                        <input type="text" 
+                               class="form-control {{ 'is-invalid' if errors and errors.name else '' }}" 
+                               id="name" 
+                               name="name" 
+                               value="{{ form_data.name if form_data else (user.name if user else '') }}"
+                               required>
+                        {% if errors and errors.name %}
+                            <div class="invalid-feedback">{{ errors.name }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="patronymic" class="form-label">Отчество</label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="patronymic" 
+                               name="patronymic" 
+                               value="{{ form_data.patronymic if form_data else (user.patronymic if user else '') }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="role_id" class="form-label">Роль</label>
+                        <select class="form-select" 
+                                id="role_id" 
+                                name="role_id"
+                                {% if is_edit and session.user_role == 'Пользователь' %}disabled{% endif %}>
+                            <option value="">Выберите роль</option>
+                            {% for role in roles %}
+                                <option value="{{ role.id }}" 
+                                        {% if (form_data and form_data.role_id == role.id|string) or (user and user.role_id == role.id) %}
+                                            selected
+                                        {% endif %}>
+                                    {{ role.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if is_edit and session.user_role == 'Пользователь' %}
+                            <div class="form-text">Роль нельзя изменить</div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if errors and errors.general %}
+                        <div class="alert alert-danger">{{ errors.general }}</div>
+                    {% endif %}
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary me-md-2">Отмена</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

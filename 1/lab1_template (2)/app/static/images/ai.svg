@@ -1,0 +1,19 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#e74c3c"/>
+  <rect x="50" y="50" width="300" height="200" fill="#2c3e50" rx="15"/>
+  <rect x="70" y="70" width="260" height="30" fill="#1a1a1a" rx="5"/>
+  <rect x="80" y="80" width="240" height="10" fill="#3498db" rx="3"/>
+  <rect x="80" y="95" width="200" height="8" fill="#e74c3c" rx="2"/>
+  <rect x="80" y="108" width="180" height="8" fill="#f39c12" rx="2"/>
+  <rect x="80" y="121" width="220" height="8" fill="#27ae60" rx="2"/>
+  <rect x="80" y="134" width="160" height="8" fill="#9b59b6" rx="2"/>
+  <rect x="80" y="147" width="190" height="8" fill="#e67e22" rx="2"/>
+  <rect x="80" y="160" width="170" height="8" fill="#16a085" rx="2"/>
+  <rect x="80" y="173" width="210" height="8" fill="#34495e" rx="2"/>
+  <rect x="80" y="186" width="150" height="8" fill="#2c3e50" rx="2"/>
+  <rect x="80" y="199" width="240" height="8" fill="#1a1a1a" rx="2"/>
+  <circle cx="320" cy="85" r="5" fill="#27ae60"/>
+  <circle cx="340" cy="85" r="5" fill="#e74c3c"/>
+  <circle cx="360" cy="85" r="5" fill="#f39c12"/>
+  <text x="200" y="270" text-anchor="middle" fill="white" font-family="Arial" font-size="18" font-weight="bold">AI & Machine Learning</text>
+</svg>

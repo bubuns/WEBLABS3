@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mt-5 text-center">Об авторе</h1>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="author-avatar-large text-center">
+            <div class="avatar-circle-large">РС</div>
+        </div>
+    </div>
+    <div class="col-md-8 text-justify d-flex align-items-center">
+        <div>
+            <h3 class="text-primary mb-3">Романов Степан</h3>
+            <p class="lead mb-3">
+                Студент группы 231-3213, изучающий разработку веб-приложений. 
+                Увлекаюсь программированием и современными технологиями.
+            </p>
+            <p>
+                В настоящее время изучаю различные аспекты веб-разработки, включая 
+                frontend и backend технологии. Интересуюсь созданием интерактивных 
+                пользовательских интерфейсов и изучением новых фреймворков.
+            </p>
+            <p>
+                Увлекаюсь изучением современных технологий программирования и 
+                созданием веб-приложений с использованием Python, Flask, HTML, CSS и JavaScript.
+            </p>
+            <div class="mt-4">
+                <h5>Навыки:</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary">Python</span>
+                    <span class="badge bg-success">Flask</span>
+                    <span class="badge bg-info">HTML/CSS</span>
+                    <span class="badge bg-warning">JavaScript</span>
+                    <span class="badge bg-secondary">Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

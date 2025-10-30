@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}URL Параметры - Flask Web App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Параметры URL</h1>
+        <p class="lead">Отображение всех параметров, переданных в URL</p>
+        
+        {% if params %}
+            <div class="card">
+                <div class="card-header">
+                    <h5>Найденные параметры ({{ params|length }})</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, value in params.items() %}
+                            <tr>
+                                <td><code>{{ key }}</code></td>
+                                <td><code>{{ value }}</code></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <h4>Параметры не найдены</h4>
+                <p>Добавьте параметры в URL для их отображения.</p>
+                <p>Пример: <code>{{ url_for('url_params') }}?name=John&age=25&city=Moscow</code></p>
+            </div>
+        {% endif %}
+        
+        <div class="mt-4">
+            <h5>Примеры тестирования:</h5>
+            <ul>
+                <li><a href="{{ url_for('url_params') }}?name=John&age=25">name=John&age=25</a></li>
+                <li><a href="{{ url_for('url_params') }}?city=Moscow&country=Russia&lang=ru">city=Moscow&country=Russia&lang=ru</a></li>
+                <li><a href="{{ url_for('url_params') }}?test=value&empty=&special=hello%20world">test=value&empty=&special=hello%20world</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

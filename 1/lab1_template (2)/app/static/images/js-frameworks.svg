@@ -1,0 +1,21 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="jsBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#jsBg)"/>
+  <!-- Ноутбук -->
+  <rect x="120" y="100" width="160" height="100" fill="#2c3e50" rx="8"/>
+  <rect x="130" y="110" width="140" height="80" fill="#1a1a1a" rx="4"/>
+  <rect x="140" y="120" width="120" height="15" fill="#61dafb" rx="2"/>
+  <rect x="140" y="140" width="100" height="12" fill="#4fc08d" rx="2"/>
+  <rect x="140" y="157" width="110" height="12" fill="#dd0031" rx="2"/>
+  <rect x="140" y="174" width="90" height="12" fill="#42b883" rx="2"/>
+  <!-- Клавиатура ноутбука -->
+  <rect x="130" y="190" width="140" height="8" fill="#34495e" rx="2"/>
+  <!-- Подставка -->
+  <rect x="110" y="198" width="180" height="4" fill="#7f8c8d" rx="2"/>
+  <text x="200" y="250" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold">JavaScript Frameworks</text>
+</svg>

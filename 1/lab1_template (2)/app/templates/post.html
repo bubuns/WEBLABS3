@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Заголовок поста -->
+        <div class="post-header mb-4">
+            <h1 class="my-4">{{ post.title }}</h1>
+            
+            <!-- Информация об авторе и дате -->
+            <div class="post-meta d-flex align-items-center mb-4">
+                <div class="author-info d-flex align-items-center me-4">
+                    <div class="author-avatar me-3">
+                        <div class="avatar-circle">{{ post.author[0] }}</div>
+                    </div>
+                    <div>
+                        <strong class="text-primary">{{ post.author }}</strong>
+                        <br>
+                        <small class="text-muted">{{ post.date.strftime('%d.%m.%Y в %H:%M') }}</small>
+                    </div>
+                </div>
+                <div class="post-stats ms-auto">
+                    <span class="badge bg-primary me-2">
+                        <i class="fas fa-comments"></i> {{ post.comments|length }} комментариев
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Изображение поста -->
+        <div class="mb-4">
+            <img src="{{ url_for('static', filename='images/' + post.image_id) }}" 
+                 class="img-fluid rounded" 
+                 alt="{{ post.title }}">
+        </div>
+        
+        <!-- Текст поста -->
+        <div class="mb-5">
+            <p class="lead">{{ post.text }}</p>
+        </div>
+        
+        <!-- Форма для комментариев -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Оставьте комментарий</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="commentText" class="form-label">Ваш комментарий</label>
+                        <textarea class="form-control" id="commentText" rows="3" placeholder="Введите ваш комментарий..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Комментарии -->
+        <div class="mb-4">
+            <h4>Комментарии ({{ post.comments|length }})</h4>
+            {% if post.comments %}
+                {% for comment in post.comments %}
+                    <div class="media mb-3">
+                        <div class="media-body">
+                            <h6 class="mt-0 mb-1">{{ comment.author }}</h6>
+                            <p class="mb-2">{{ comment.text }}</p>
+                            
+                            <!-- Ответы на комментарии -->
+                            {% if comment.replies %}
+                                <div class="ms-4">
+                                    {% for reply in comment.replies %}
+                                        <div class="media mb-2">
+                                            <div class="media-body">
+                                                <h6 class="mt-0 mb-1">{{ reply.author }}</h6>
+                                                <p class="mb-1">{{ reply.text }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted">Пока нет комментариев. Будьте первым!</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Боковая панель -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Информация о посте</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Автор:</strong> {{ post.author }}</p>
+                <p><strong>Дата:</strong> {{ post.date.strftime('%d.%m.%Y') }}</p>
+                <p><strong>Комментариев:</strong> {{ post.comments|length }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0">Навигация</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('posts') }}" class="btn btn-outline-primary btn-sm">← Все посты</a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">Главная</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

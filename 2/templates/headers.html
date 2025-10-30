@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Заголовки запроса - Flask Web App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Заголовки запроса</h1>
+        <p class="lead">Отображение всех заголовков HTTP запроса</p>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5>HTTP Заголовки ({{ headers|length }})</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Заголовок</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in headers.items() %}
+                        <tr>
+                            <td><code>{{ key }}</code></td>
+                            <td><code>{{ value }}</code></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h5>Информация о запросе:</h5>
+            <ul>
+                <li><strong>Метод:</strong> {{ request.method }}</li>
+                <li><strong>URL:</strong> {{ request.url }}</li>
+                <li><strong>User-Agent:</strong> {{ request.headers.get('User-Agent', 'Не указан') }}</li>
+                <li><strong>Accept:</strong> {{ request.headers.get('Accept', 'Не указан') }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
