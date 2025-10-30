@@ -21,4 +21,4 @@ werkzeug==3.0.6
 zipp==3.20.2
 
 # For Vercel serverless deployment (WSGI adapter)
-vercel-python-wsgi==0.2.6
+vercel-wsgi
